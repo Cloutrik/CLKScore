@@ -31,7 +31,7 @@ jobs:
         run: node src/index.js
         env:
           GH_TOKEN: ${{ secrets.ORG_SCORECARD_TOKEN }}
-          ORG_NAME: ${{ vars.ORG_NAME }}
+          ORG_NAME: ${{ secrets.ORG_NAME }}
 
       - name: Commit e push
         run: |
