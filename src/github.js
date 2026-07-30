@@ -37,23 +37,23 @@ export async function fetchOrgMembers(client, org) {
     query($org: String!, $cursor: String) {
       organization(login: $org) {
         membersWithRole(first: 100, after: $cursor) {
-          nodes { login }
+          nodes { login avatarUrl(size: 96) }
           pageInfo { hasNextPage endCursor }
         }
       }
     }
   `;
-  const logins = [];
+  const members = [];
   let cursor = null;
   let hasNextPage = true;
   while (hasNextPage) {
     const { organization } = await withRetry(() => client(query, { org, cursor }));
     const page = organization.membersWithRole;
-    logins.push(...page.nodes.map((n) => n.login));
+    members.push(...page.nodes.map((n) => ({ login: n.login, avatarUrl: n.avatarUrl })));
     hasNextPage = page.pageInfo.hasNextPage;
     cursor = page.pageInfo.endCursor;
   }
-  return logins;
+  return members;
 }
 
 export function splitIntoWindows(fromISO, toISO) {

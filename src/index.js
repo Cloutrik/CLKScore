@@ -24,6 +24,19 @@ const MIME_BY_EXT = { '.png': 'image/png', '.svg': 'image/svg+xml', '.jpg': 'ima
 
 const BADGE_WATERMARK_SIZE = 56;
 
+async function fetchImageDataUri(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const contentType = res.headers.get('content-type')?.split(';')[0] || 'image/png';
+    const arrayBuffer = await res.arrayBuffer();
+    return `data:${contentType};base64,${Buffer.from(arrayBuffer).toString('base64')}`;
+  } catch (err) {
+    console.warn(`Nao foi possivel carregar avatar ${url}: ${err.message}`);
+    return null;
+  }
+}
+
 async function loadWatermark(config) {
   if (!config.watermark?.enabled) return {};
   const fullPath = path.join(paths.root, config.watermark.path);
@@ -66,7 +79,8 @@ async function main() {
   await mkdir(paths.certificates, { recursive: true });
   await mkdir(paths.badges, { recursive: true });
 
-  for (const login of members) {
+  for (const member of members) {
+    const { login, avatarUrl } = member;
     const userState = getUserState(state, login);
     const from = userState.lastSyncedAt ?? config.bootstrapStartDate;
     const windows = splitIntoWindows(from, nowISO);
@@ -94,8 +108,9 @@ async function main() {
     const levelInfo = computeLevel(score, config.levelBase);
     const badges = computeBadges(userState.totals, userState, config.badgeThresholds);
 
+    const avatarDataUri = avatarUrl ? await fetchImageDataUri(avatarUrl) : null;
     const cardData = { totals: userState.totals, score, levelInfo, badges };
-    await writeFile(`${paths.certificates}/${login}.svg`, renderCard(login, cardData, watermarkOpts));
+    await writeFile(`${paths.certificates}/${login}.svg`, renderCard(login, cardData, { ...watermarkOpts, avatarDataUri }));
     const badgeWatermarkOpts = { ...watermarkOpts, watermarkDataUri: watermarkOpts.badgeWatermarkDataUri };
     await writeFile(`${paths.badges}/${login}.svg`, renderBadgeCompact(login, cardData, badgeWatermarkOpts));
 

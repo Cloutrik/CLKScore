@@ -4,8 +4,6 @@ function escapeXml(str) {
   }[c]));
 }
 
-const avatarUrl = (login) => `https://github.com/${login}.png?size=96`;
-
 const PALETTE = {
   bgFrom: '#1b1033',
   bgTo: '#2a1856',
@@ -45,6 +43,18 @@ function statBlock(x, y, icon, label, value) {
 function watermark({ dataUri, opacity, clipId, x, y, w, h }) {
   if (!dataUri) return '';
   return `<g clip-path="url(#${clipId})"><image href="${dataUri}" x="${x}" y="${y}" width="${w}" height="${h}" opacity="${opacity}" /></g>`;
+}
+
+function avatar(login, opts, width) {
+  if (opts.avatarDataUri) {
+    return `<image href="${opts.avatarDataUri}" x="${width - 88}" y="20" width="64" height="64" clip-path="url(#avatar-clip-${login})" />`;
+  }
+
+  const initial = escapeXml(login.slice(0, 1).toUpperCase());
+  return `
+    <circle cx="${width - 56}" cy="52" r="32" fill="rgba(255,255,255,0.10)" />
+    <text x="${width - 56}" y="62" text-anchor="middle" font-size="28" font-weight="700" fill="${PALETTE.text}" font-family="Segoe UI, Verdana, sans-serif">${initial}</text>
+  `;
 }
 
 function badgeChip(x, y, badge) {
@@ -105,7 +115,7 @@ export function renderCard(login, data, opts = {}) {
   <text x="128" y="46" font-size="20" font-weight="700" fill="${PALETTE.text}" font-family="Segoe UI, Verdana, sans-serif">@${escapeXml(login)}</text>
   <text x="128" y="66" font-size="12" fill="${PALETTE.accentSoft}" font-family="Segoe UI, Verdana, sans-serif">${escapeXml(title)}</text>
 
-  <image href="${avatarUrl(login)}" x="${width - 88}" y="20" width="64" height="64" clip-path="url(#avatar-clip-${login})" />
+  ${avatar(login, opts, width)}
   <circle cx="${width - 56}" cy="52" r="32" fill="none" stroke="${PALETTE.accent}" stroke-width="2" />
 
   <text x="128" y="92" font-size="10" fill="${PALETTE.textMuted}" font-family="Segoe UI, Verdana, sans-serif">XP ${Math.round(data.score - floor)} / ${Math.round(ceil - floor)} para o proximo nivel</text>
