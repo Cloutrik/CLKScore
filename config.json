@@ -1,0 +1,24 @@
+{
+  "weights": {
+    "commits": 2,
+    "pullRequests": 8,
+    "mergedPullRequests": 12,
+    "reviews": 5,
+    "issues": 3
+  },
+  "badgeThresholds": {
+    "mergeMaster": 25,
+    "commitMachine": 200,
+    "teamPlayer": 15,
+    "issueTracker": 30,
+    "streakDays": 7
+  },
+  "levelBase": 50,
+  "bootstrapStartDate": "2023-01-01",
+  "leaderboardSize": 10,
+  "watermark": {
+    "enabled": true,
+    "path": "assets/cloutrik-logo.png",
+    "opacity": 0.25
+  }
+}
