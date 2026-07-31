@@ -18,7 +18,7 @@
   "leaderboardSize": 10,
   "watermark": {
     "enabled": true,
-    "path": "assets/cloutrik-logo.png",
+    "path": "data/cloutrik-logo.png",
     "opacity": 0.25
   }
 }

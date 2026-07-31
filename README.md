@@ -11,10 +11,9 @@ proprio perfil do GitHub de cada colaborador.
 
 ## O que e gerado
 
-- `docs/certificates/<login>.svg` — card completo (nivel, XP, stats, badges).
-- `docs/badges/<login>.svg` — versao compacta, tipo "badge" pequeno.
-- `docs/leaderboard.svg` — ranking dos top colaboradores da organizacao.
-- `docs/index.html` — galeria com todos os cards, servida via GitHub Pages.
+- `data/certificates/<login>.svg` — card completo (nivel, XP, stats, badges).
+- `data/badges/<login>.svg` — versao compacta, tipo "badge" pequeno.
+- `data/leaderboard.svg` — ranking dos top colaboradores da organizacao.
 - `data/state.json` — estado acumulado (nao mexer manualmente); permite que
   cada execucao busque so o delta desde a ultima rodada, em vez de
   recalcular tudo do zero todos os dias.
@@ -71,23 +70,14 @@ Personal Access Token à parte:
 Em **Settings → Secrets and variables → Actions → Variables**, crie a
 variavel `ORG_NAME` com o login da organizacao (ex: `minha-org`).
 
-### 4. Ative o GitHub Pages
-
-Em **Settings → Pages**, defina *Source* = `Deploy from a branch`, branch
-`main`, pasta `/docs`. A galeria ficara disponivel em:
-
-```
-https://<sua-org-ou-usuario>.github.io/<repo>/
-```
-
-### 5. Rode manualmente para testar
+### 4. Rode manualmente para testar
 
 Va em **Actions → Nightly Scorecard → Run workflow** para disparar a
 primeira execucao sem esperar o cron. Depois disso ele roda sozinho todas
 as noites (`.github/workflows/scorecard.yml`, cron `17 3 * * *` UTC — ajuste
 o horario se quiser).
 
-### 6. Teste local (opcional)
+### 5. Teste local (opcional)
 
 ```bash
 npm install
@@ -102,16 +92,10 @@ Depois da primeira execução, cada colaborador pode colar no proprio
 `README.md` de perfil (repo `<usuario>/<usuario>`):
 
 ```markdown
-![Meu scorecard](https://raw.githubusercontent.com/<org>/<repo>/main/docs/certificates/<usuario>.svg)
+![Meu scorecard](https://raw.githubusercontent.com/<org>/<repo>/main/data/certificates/<usuario>.svg)
 ```
 
-ou, usando o GitHub Pages:
-
-```markdown
-![Meu scorecard](https://<org-ou-usuario>.github.io/<repo>/certificates/<usuario>.svg)
-```
-
-A versão compacta (`docs/badges/<usuario>.svg`) é útil para colar ao lado de
+A versão compacta (`data/badges/<usuario>.svg`) é útil para colar ao lado de
 outros badges/shields no topo do README.
 
 ## Personalizando
@@ -119,19 +103,18 @@ outros badges/shields no topo do README.
 - `config.json`: pesos do score, thresholds de badges, data de início do
   bootstrap, tamanho do leaderboard.
 - `src/svg.js`: cores, layout e conteúdo dos cards.
-- `src/page.js`: layout da galeria HTML.
 
 ### Marca d'água (logo da empresa)
 
 Coloque o arquivo do logo (de preferência PNG ou SVG com fundo transparente)
-em `assets/cloutrik-logo.png` e ele é embutido automaticamente (como base64,
+em `data/cloutrik-logo.png` e ele é embutido automaticamente (como base64,
 direto dentro do SVG — não depende de host externo) em baixa opacidade nos
 cards, badges e no leaderboard. Configurável em `config.json`:
 
 ```json
 "watermark": {
   "enabled": true,
-  "path": "assets/cloutrik-logo.png",
+  "path": "data/cloutrik-logo.png",
   "opacity": 0.1
 }
 ```
