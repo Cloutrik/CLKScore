@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/cloutrik-logo.png" alt="Cloutrik" width="160" />
+</p>
+
 # CLKScore
 
 Gera "scorecards" gamificados (SVG) com as metricas de contribuicao de cada
@@ -5,9 +9,9 @@ colaborador de uma organizacao do GitHub — commits, pull requests, PRs
 mergeados, code reviews e issues — junto com nivel, barra de XP, sequencia
 (streak) de dias contribuindo e conquistas (badges).
 
-Um GitHub Action roda todas as noites, recalcula as metricas e commita os
-SVGs atualizados de volta no repositorio, prontos para serem usados no
-proprio perfil do GitHub de cada colaborador.
+Um GitHub Action roda toda semana (e a cada commit na `master`), recalcula
+as metricas e commita os SVGs atualizados de volta no repositorio, prontos
+para serem usados no proprio perfil do GitHub de cada colaborador.
 
 ## O que e gerado
 
