@@ -72,10 +72,11 @@ variavel `ORG_NAME` com o login da organizacao (ex: `minha-org`).
 
 ### 4. Rode manualmente para testar
 
-Va em **Actions → Nightly Scorecard → Run workflow** para disparar a
-primeira execucao sem esperar o cron. Depois disso ele roda sozinho todas
-as noites (`.github/workflows/scorecard.yml`, cron `17 3 * * *` UTC — ajuste
-o horario se quiser).
+Va em **Actions → Scorecard → Run workflow** para disparar a
+primeira execucao sem esperar o cron. Depois disso ele roda sozinho toda
+semana, aos domingos (`.github/workflows/scorecard.yml`, cron `17 3 * * 0`
+UTC — ajuste o horario se quiser), e tambem automaticamente a cada commit
+na branch `master`.
 
 ### 5. Teste local (opcional)
 
@@ -107,14 +108,14 @@ outros badges/shields no topo do README.
 ### Marca d'água (logo da empresa)
 
 Coloque o arquivo do logo (de preferência PNG ou SVG com fundo transparente)
-em `data/cloutrik-logo.png` e ele é embutido automaticamente (como base64,
+em `assets/cloutrik-logo.png` e ele é embutido automaticamente (como base64,
 direto dentro do SVG — não depende de host externo) em baixa opacidade nos
 cards, badges e no leaderboard. Configurável em `config.json`:
 
 ```json
 "watermark": {
   "enabled": true,
-  "path": "data/cloutrik-logo.png",
+  "path": "assets/cloutrik-logo.png",
   "opacity": 0.1
 }
 ```
