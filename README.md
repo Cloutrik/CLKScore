@@ -74,9 +74,9 @@ variavel `ORG_NAME` com o login da organizacao (ex: `minha-org`).
 
 Va em **Actions → Scorecard → Run workflow** para disparar a
 primeira execucao sem esperar o cron. Depois disso ele roda sozinho toda
-semana, aos domingos (`.github/workflows/scorecard.yml`, cron `17 3 * * 0`
-UTC — ajuste o horario se quiser), e tambem automaticamente a cada commit
-na branch `master`.
+semana, aos domingos as 23h UTC (`.github/workflows/scorecard.yml`, cron
+`0 23 * * 0` — ajuste o horario se quiser), e tambem automaticamente a cada
+commit na branch `master`.
 
 ### 5. Teste local (opcional)
 
