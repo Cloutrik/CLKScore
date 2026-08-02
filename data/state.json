@@ -1,8 +1,8 @@
 {
-  "lastRunAt": "2026-08-01T06:09:50.922Z",
+  "lastRunAt": "2026-08-02T06:12:46.423Z",
   "users": {
     "PatrickCalorioCarvalho": {
-      "lastSyncedAt": "2026-08-01T06:09:50.922Z",
+      "lastSyncedAt": "2026-08-02T06:12:46.423Z",
       "totals": {
         "commits": 5,
         "pullRequests": 2,
@@ -10,11 +10,11 @@
         "reviews": 2,
         "issues": 0
       },
-      "currentStreak": 2,
+      "currentStreak": 0,
       "longestStreak": 2
     },
     "viniciusbassio": {
-      "lastSyncedAt": "2026-08-01T06:09:50.922Z",
+      "lastSyncedAt": "2026-08-02T06:12:46.423Z",
       "totals": {
         "commits": 0,
         "pullRequests": 0,
@@ -26,7 +26,7 @@
       "longestStreak": 0
     },
     "ClaudioMatheusDev": {
-      "lastSyncedAt": "2026-08-01T06:09:50.922Z",
+      "lastSyncedAt": "2026-08-02T06:12:46.423Z",
       "totals": {
         "commits": 8,
         "pullRequests": 3,
@@ -34,7 +34,7 @@
         "reviews": 1,
         "issues": 0
       },
-      "currentStreak": 3,
+      "currentStreak": 0,
       "longestStreak": 3
     }
   }
