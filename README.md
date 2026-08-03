@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/cloutrik-logo.png" alt="Cloutrik" width="160" />
+</p>
+
 # CLKScore
 
 Gera "scorecards" gamificados (SVG) com as metricas de contribuicao de cada
@@ -5,16 +9,15 @@ colaborador de uma organizacao do GitHub — commits, pull requests, PRs
 mergeados, code reviews e issues — junto com nivel, barra de XP, sequencia
 (streak) de dias contribuindo e conquistas (badges).
 
-Um GitHub Action roda todas as noites, recalcula as metricas e commita os
-SVGs atualizados de volta no repositorio, prontos para serem usados no
-proprio perfil do GitHub de cada colaborador.
+Um GitHub Action roda toda semana (e a cada commit na `master`), recalcula
+as metricas e commita os SVGs atualizados de volta no repositorio, prontos
+para serem usados no proprio perfil do GitHub de cada colaborador.
 
 ## O que e gerado
 
-- `docs/certificates/<login>.svg` — card completo (nivel, XP, stats, badges).
-- `docs/badges/<login>.svg` — versao compacta, tipo "badge" pequeno.
-- `docs/leaderboard.svg` — ranking dos top colaboradores da organizacao.
-- `docs/index.html` — galeria com todos os cards, servida via GitHub Pages.
+- `data/certificates/<login>.svg` — card completo (nivel, XP, stats, badges).
+- `data/badges/<login>.svg` — versao compacta, tipo "badge" pequeno.
+- `data/leaderboard.svg` — ranking dos top colaboradores da organizacao.
 - `data/state.json` — estado acumulado (nao mexer manualmente); permite que
   cada execucao busque so o delta desde a ultima rodada, em vez de
   recalcular tudo do zero todos os dias.
@@ -71,23 +74,15 @@ Personal Access Token à parte:
 Em **Settings → Secrets and variables → Actions → Variables**, crie a
 variavel `ORG_NAME` com o login da organizacao (ex: `minha-org`).
 
-### 4. Ative o GitHub Pages
+### 4. Rode manualmente para testar
 
-Em **Settings → Pages**, defina *Source* = `Deploy from a branch`, branch
-`main`, pasta `/docs`. A galeria ficara disponivel em:
+Va em **Actions → Scorecard → Run workflow** para disparar a
+primeira execucao sem esperar o cron. Depois disso ele roda sozinho toda
+semana, aos domingos as 23h UTC (`.github/workflows/scorecard.yml`, cron
+`0 23 * * 0` — ajuste o horario se quiser), e tambem automaticamente a cada
+commit na branch `master`.
 
-```
-https://<sua-org-ou-usuario>.github.io/<repo>/
-```
-
-### 5. Rode manualmente para testar
-
-Va em **Actions → Nightly Scorecard → Run workflow** para disparar a
-primeira execucao sem esperar o cron. Depois disso ele roda sozinho todas
-as noites (`.github/workflows/scorecard.yml`, cron `17 3 * * *` UTC — ajuste
-o horario se quiser).
-
-### 6. Teste local (opcional)
+### 5. Teste local (opcional)
 
 ```bash
 npm install
@@ -102,16 +97,10 @@ Depois da primeira execução, cada colaborador pode colar no proprio
 `README.md` de perfil (repo `<usuario>/<usuario>`):
 
 ```markdown
-![Meu scorecard](https://raw.githubusercontent.com/<org>/<repo>/main/docs/certificates/<usuario>.svg)
+![Meu scorecard](https://raw.githubusercontent.com/<org>/<repo>/main/data/certificates/<usuario>.svg)
 ```
 
-ou, usando o GitHub Pages:
-
-```markdown
-![Meu scorecard](https://<org-ou-usuario>.github.io/<repo>/certificates/<usuario>.svg)
-```
-
-A versão compacta (`docs/badges/<usuario>.svg`) é útil para colar ao lado de
+A versão compacta (`data/badges/<usuario>.svg`) é útil para colar ao lado de
 outros badges/shields no topo do README.
 
 ## Personalizando
@@ -119,7 +108,6 @@ outros badges/shields no topo do README.
 - `config.json`: pesos do score, thresholds de badges, data de início do
   bootstrap, tamanho do leaderboard.
 - `src/svg.js`: cores, layout e conteúdo dos cards.
-- `src/page.js`: layout da galeria HTML.
 
 ### Marca d'água (logo da empresa)
 

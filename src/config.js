@@ -12,8 +12,7 @@ export async function loadConfig() {
 export const paths = {
   root: rootDir,
   state: path.join(rootDir, 'data', 'state.json'),
-  certificates: path.join(rootDir, 'docs', 'certificates'),
-  badges: path.join(rootDir, 'docs', 'badges'),
-  leaderboard: path.join(rootDir, 'docs', 'leaderboard.svg'),
-  indexHtml: path.join(rootDir, 'docs', 'index.html'),
+  certificates: path.join(rootDir, 'data', 'certificates'),
+  badges: path.join(rootDir, 'data', 'badges'),
+  leaderboard: path.join(rootDir, 'data', 'leaderboard.svg'),
 };

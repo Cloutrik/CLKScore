@@ -9,7 +9,6 @@ import {
 } from './github.js';
 import { computeScore, computeLevel, computeBadges } from './score.js';
 import { renderCard, renderBadgeCompact, renderLeaderboard } from './svg.js';
-import { renderIndexPage } from './page.js';
 import { boxDownscale } from './png-utils.js';
 
 const ORG = process.env.ORG_NAME;
@@ -121,7 +120,6 @@ async function main() {
   leaderboardEntries.sort((a, b) => b.score - a.score);
   const top = leaderboardEntries.slice(0, config.leaderboardSize);
   await writeFile(paths.leaderboard, renderLeaderboard(top, ORG));
-  await writeFile(paths.indexHtml, renderIndexPage(ORG, leaderboardEntries));
 
   state.lastRunAt = nowISO;
   await saveState(state);
