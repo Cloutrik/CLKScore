@@ -91,7 +91,7 @@ export function renderCard(login, data, opts = {}) {
   const extra = data.badges.length - shownCount;
   const extraLabel = extra > 0 ? `<text x="${chipX + 4}" y="225" font-size="11" fill="${PALETTE.textMuted}" font-family="Segoe UI, Verdana, sans-serif">+${extra}</text>` : '';
 
-  return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scorecard de ${escapeXml(login)}">
+  return `<svg width="${width * 2}" height="${height * 2}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scorecard de ${escapeXml(login)}">
   <defs>
     <linearGradient id="bg-${login}" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="${PALETTE.bgFrom}" />
@@ -140,7 +140,7 @@ export function renderBadgeCompact(login, data, opts = {}) {
   const width = 260;
   const height = 56;
   const { level } = data.levelInfo;
-  return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Score de ${escapeXml(login)}">
+  return `<svg width="${width * 2}" height="${height * 2}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Score de ${escapeXml(login)}">
   <defs>
     <linearGradient id="bgc-${login}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="${PALETTE.bgFrom}" />
@@ -184,7 +184,7 @@ export function renderLeaderboard(entries, orgName) {
     `;
   }).join('');
 
-  return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ranking de contribuicao - ${escapeXml(orgName)}">
+  return `<svg width="${width * 2}" height="${height * 2}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ranking de contribuicao - ${escapeXml(orgName)}">
   <defs>
     <linearGradient id="bgl" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="${PALETTE.bgFrom}" />

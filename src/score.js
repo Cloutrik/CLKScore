@@ -16,7 +16,7 @@ export function xpForLevel(level, levelBase) {
 export function computeLevel(score, levelBase) {
   let level = 1;
   while (xpForLevel(level + 1, levelBase) <= score) level++;
-  const floor = xpForLevel(level, levelBase);
+  const floor = level === 1 ? 0 : xpForLevel(level, levelBase);
   const ceil = xpForLevel(level + 1, levelBase);
   const progress = ceil === floor ? 1 : (score - floor) / (ceil - floor);
   return { level, progress: Math.max(0, Math.min(1, progress)), floor, ceil };
